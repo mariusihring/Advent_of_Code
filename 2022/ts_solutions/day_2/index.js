@@ -9,6 +9,9 @@ const SCISSORS = { letter: "Z", score: 3 }
 const WIN = 6
 const DRAW = 3
 const LOSS = 0
+const SHOULD_LOOSE = { letter: "X" }
+const SHOULD_DRAW = { letter: "Y" }
+const SHOULD_WIN = { letter: "Z" }
 
 const input = fs.readFileSync("./input.txt", "utf-8").split("\n")
 input.pop()
@@ -69,4 +72,74 @@ input.map((element) => {
   }
 })
 console.log(score)
+let second = 0
+input.forEach((element) => {
+  switch (element[0]) {
+    case ENEMY_ROCK.letter: {
+      switch (element[2]) {
+        case SHOULD_WIN.letter: {
+          second += (PAPER.score + WIN)
+          break;
+        }
+        case SHOULD_LOOSE.letter: {
+          second += (SCISSORS.score + LOSS)
 
+          break;
+        }
+        case SHOULD_DRAW.letter: {
+          second += (ROCK.score + DRAW)
+          break;
+        }
+
+
+      }
+      break
+    }
+    case ENEMY_PAPER.letter: {
+      switch (element[2]) {
+        case SHOULD_WIN.letter: {
+          second += (SCISSORS.score + WIN)
+
+          break;
+        }
+        case SHOULD_LOOSE.letter: {
+          second += (ROCK.score + LOSS)
+          break;
+        }
+        case SHOULD_DRAW.letter: {
+          second += (PAPER.score + DRAW)
+
+          break;
+        }
+
+
+      }
+      break
+    }
+    case ENEMY_SCISSORS.letter: {
+      switch (element[2]) {
+        case SHOULD_WIN.letter: {
+          second += (ROCK.score + WIN)
+
+          break;
+        }
+        case SHOULD_LOOSE.letter: {
+          second += (PAPER.score + LOSS)
+
+          break;
+        }
+        case SHOULD_DRAW.letter: {
+          second += (SCISSORS.score + DRAW)
+
+          break;
+        }
+
+
+      }
+    }
+      break
+  }
+
+})
+
+console.log(second)
